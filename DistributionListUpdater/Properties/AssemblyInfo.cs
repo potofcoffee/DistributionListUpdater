@@ -7,11 +7,11 @@ using System.Security;
 // Attribute gesteuert. Ändern Sie diese Attributwerte, um die Informationen zu ändern,
 // die einer Assembly zugeordnet sind.
 [assembly: AssemblyTitle("DistributionListUpdater")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Automatically maintained distribution lists for outlook")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("Christoph Fischer, ELKW")]
 [assembly: AssemblyProduct("DistributionListUpdater")]
-[assembly: AssemblyCopyright("Copyright ©  2018")]
+[assembly: AssemblyCopyright("Licensed under GNU General Public License (GPL) v.3.0+")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

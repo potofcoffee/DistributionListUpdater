@@ -55,6 +55,7 @@ namespace DistributionListUpdater
         {
             DistListItem myList = null;
 
+            EnsureDistListFolderIsPresent();
             ClearDistributionLists();
 
             // process all contact folders
@@ -99,10 +100,8 @@ namespace DistributionListUpdater
             }
         }
 
-
-        private void ThisAddIn_Startup(object sender, System.EventArgs e)
+        private void EnsureDistListFolderIsPresent()
         {
-            // ensure the distribution list folder is present
             var defaultContactsFolder = Application.Session.GetDefaultFolder(OlDefaultFolders.olFolderContacts);
             try
             {
@@ -114,6 +113,12 @@ namespace DistributionListUpdater
                 DistListFolder = defaultContactsFolder.Folders["Verteilerlisten"];
             }
             this.DistListFolder.ShowAsOutlookAB = true;
+        }
+
+        private void ThisAddIn_Startup(object sender, System.EventArgs e)
+        {
+            // ensure the distribution list folder is present
+            EnsureDistListFolderIsPresent();
 
             // make a list of all contacts folders
             GetAllContactFolders();

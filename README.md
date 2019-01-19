@@ -50,3 +50,6 @@ mit dem Titel "Verteilerlisten" an. Durch einen einzigen Klick im Menüband werde
 
 ## Danke
 Das Installationsprogramm zum Addin wurde mit Daniel Kraus' ausgezeichnetem [VstoAddinInstaller](https://github.com/bovender/VstoAddinInstaller) erstellt.
+
+## Lizenz
+Dieses Addin wird unter der GNU GPLv3-Lizenz angeboten. Nähere Informationen dazu finden sich in der Datei [LICENSE](LICENSE). Ausführliche deutschsprachige Lizenzinformationen finden sich [hier](http://www.gnu.de/documents/gpl.de.html).

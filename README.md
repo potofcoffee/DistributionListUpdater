@@ -48,4 +48,5 @@ mit dem Titel "Verteilerlisten" an. Durch einen einzigen Klick im Menüband werde
 2. Kontakte mit Kategorien können über Sharepoint zwischen mehreren Benutzern synchron gehalten werden. Dies ist grundsätzlich auch auf dem ELKW-Sharepoint möglich. Dazu muss die Einrichtung einer "Kontaktliste" beantragt werden. Bitte beachten Sie, dass in der Standardeinstellung nur bestimmte Kontaktdaten synchronisiert werden. Das Feld "Kategorien" gehört nicht dazu. Auf dem Sharepoint ist es daher nötig, dieses (und evtl. weitere benötigte Felder) erst hinzuzufügen. Im Fall des ELKW-Sharepoints muss dies durch die Datagroup geschehen.
 
 
-
+## Danke
+Das Installationsprogramm zum Addin wurde mit Daniel Kraus' ausgezeichnetem [VstoAddinInstaller](https://github.com/bovender/VstoAddinInstaller) erstellt.

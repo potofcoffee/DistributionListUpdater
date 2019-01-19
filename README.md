@@ -16,7 +16,7 @@ mit dem Titel "Verteilerlisten" an. Durch einen einzigen Klick im Menüband werde
 
 ## Installation
 
-1. Laden Sie das Setup-Programm zum Addin hier unter [Releases](Releases/) herunter.
+1. Laden Sie das Setup-Programm zum Addin hier unter [Releases](releases/) herunter.
 2. Beenden Sie Outlook, falls es aktuell ausgeführt wird.
 3. Führen Sie das Setup-Programm aus und übernehmen Sie die vorgeschlagenen Einstellungen.
 4. Starten Sie Outlook. Falls Sie die folgende Sicherheitsabfrage (nur beim ersten Start nach der Installation) sehen, klicken Sie auf "Installieren":

@@ -12,39 +12,16 @@ namespace DistributionListUpdater
 {
     public partial class ThisAddIn
     {
-        private List<MAPIFolder> ContactFolders = new List<MAPIFolder>();
-        private MAPIFolder DistListFolder;
-        private List<DistListItem> DistLists = new List<DistListItem>();
+        public List<DistListItem> DistLists = new List<DistListItem>();
 
-
-        private void GetSubFolders(MAPIFolder folder) {
-            foreach (MAPIFolder subFolder in folder.Folders)
-            {
-                if (subFolder.DefaultMessageClass == "IPM.Contact") this.ContactFolders.Add(subFolder);
-                if (subFolder.Folders.Count > 0) GetSubFolders(subFolder);
-            }
-        }
-
-
-        private void GetAllContactFolders()
-        {
-            foreach (Store store in Application.Session.Stores)
-            {
-                GetSubFolders(store.GetRootFolder());
-            }
-            // exempt the DistListFolder from this list
-            ContactFolders.Remove(DistListFolder);
-        }
+        public Outlook.MAPIFolder ContactsFolder;
+        public Outlook.MAPIFolder ListsFolder;
 
         private void ClearDistributionLists() {
             DistLists.Clear();
-            foreach (DistListItem distList in DistListFolder.Items.OfType<DistListItem>())
+            foreach (ContactItem distList in ListsFolder.Items)
             {
-                for (int i=1; i<=distList.MemberCount; i++)
-                {
-                    distList.RemoveMember(distList.GetMember(1));
-                }
-                DistLists.Add(distList);
+                distList.Delete();
             }
         }
 
@@ -55,81 +32,80 @@ namespace DistributionListUpdater
         {
             DistListItem myList = null;
 
-            EnsureDistListFolderIsPresent();
             ClearDistributionLists();
+            DlgWait StatusDlg = new DlgWait();
+            StatusDlg.ShowDialog();
 
-            // process all contact folders
-            foreach (MAPIFolder currentFolder in ContactFolders)
-            {
-                // repeat for each contact in this folder
-                foreach (ContactItem contact in currentFolder.Items.OfType<ContactItem>())
-                {
-                    // only process contacts with an email address
-                    if (contact.Email1Address != null)
-                    {
-                        // create a Recipient for this contact
-                        Recipient myRecipient = Application.Session.CreateRecipient(contact.Email1Address.ToString());
-                        myRecipient.Resolve();
-
-                        // add to relevant DistListItems according to categories
-                        if (contact.Categories != null)
-                        {
-                            var categories = contact.Categories.Split(new[] { "; " }, StringSplitOptions.None);
-                            foreach (string category in categories)
-                            {
-                                if (!DistLists.Exists(x => x.DLName == "VL." + category))
-                                {
-                                    // DistListItem needs to be created
-                                    myList = DistListFolder.Items.Add(OlItemType.olDistributionListItem) as DistListItem;
-                                    myList.DLName = "VL." + category;
-                                    myList.Body = "Dies ist eine automatisch erzeugte Liste. Sie sollte nicht von Hand geändert werden, da beim nächsten Update alle Änderungen überschrieben würden.";
-                                    myList.Save();
-                                    DistLists.Add(myList);
-                                }
-                                else
-                                {
-                                    // DistListItem is already present
-                                    myList = DistLists.Find(x => x.DLName == "VL." + category);
-                                }
-                                myList.AddMember(myRecipient);
-                                myList.Save();
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-        private void EnsureDistListFolderIsPresent()
-        {
-            var defaultContactsFolder = Application.Session.GetDefaultFolder(OlDefaultFolders.olFolderContacts);
-            try
-            {
-                DistListFolder = defaultContactsFolder.Folders["Verteilerlisten"];
-            }
-            catch
-            {
-                defaultContactsFolder.Folders.Add("Verteilerlisten");
-                DistListFolder = defaultContactsFolder.Folders["Verteilerlisten"];
-            }
-            this.DistListFolder.ShowAsOutlookAB = true;
         }
 
         private void ThisAddIn_Startup(object sender, System.EventArgs e)
         {
-            // ensure the distribution list folder is present
-            EnsureDistListFolderIsPresent();
+            // ensure folder paths are set
+            string ContactsFolderPath = Properties.Settings.Default.ContactsFolderPath;
+            string ListsFolderPath = Properties.Settings.Default.ListsFolderPath;
 
-            // make a list of all contacts folders
-            GetAllContactFolders();
+            if (ContactsFolderPath == "")
+            {
+                ConfigureContactsFolder();
+            } else
+            {
+                ContactsFolder = GetFolderByPath(ContactsFolderPath);
+            }
+
+            ListsFolder = GetFolderByPath(ListsFolderPath);
+            while (null == ListsFolder) ConfigureListsFolder();
+
+
+            ListsFolder.ShowAsOutlookAB = true;
         }
 
+
+        public void ConfigureContactsFolder()
+        {
+            MessageBox.Show("Bitte wählen Sie im folgenden Dialog einen Ordner, dessen Kontakte als Grundlage für Verteilerlisten dienen sollen.", "Kein Kontaktordner angegeben");
+            ContactsFolder = this.Application.GetNamespace("MAPI").PickFolder();
+            Properties.Settings.Default.ContactsFolderPath = ContactsFolder.FolderPath;
+            Properties.Settings.Default.Save();
+        }
+
+        public void ConfigureListsFolder()
+        {
+            MessageBox.Show("Bitte wählen Sie im folgenden Dialog einen Ordner, in dem die Verteilerlisten gespeichert werden sollen.", "Kein Listenordner angegeben");
+            ListsFolder = this.Application.GetNamespace("MAPI").PickFolder();
+            Properties.Settings.Default.ListsFolderPath = ListsFolder.FolderPath;
+            Properties.Settings.Default.Save();
+        }
+
+
+        private Folder GetFolderByPath(string path)
+        {
+            foreach (Store store in Application.Session.Stores)
+            {
+                Folder folder = GetSubFolderByPath((Folder)store.GetRootFolder(), path);
+                if (null != folder) return folder;
+            }
+            return null;
+        }
+
+        private Folder GetSubFolderByPath(Folder folder, string path)
+        {
+
+            if (path == folder.FolderPath) return folder;
+            foreach (Folder subFolder in folder.Folders)
+            {
+                Folder myFolder = GetSubFolderByPath(subFolder, path);
+                if (null != myFolder) return myFolder;
+            }
+            return null;
+
+        }
 
         private void ThisAddIn_Shutdown(object sender, System.EventArgs e)
         {
             // Hinweis: Outlook löst dieses Ereignis nicht mehr aus. Wenn Code vorhanden ist, der 
             //    muss ausgeführt werden, wenn Outlook heruntergefahren wird. Weitere Informationen finden Sie unter https://go.microsoft.com/fwlink/?LinkId=506785.
         }
+
 
         #region Von VSTO generierter Code
 

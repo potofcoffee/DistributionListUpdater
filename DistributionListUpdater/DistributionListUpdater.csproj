@@ -182,9 +182,18 @@
     can be found.
   -->
   <ItemGroup>
+    <Compile Include="DlgWait.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DlgWait.Designer.cs">
+      <DependentUpon>DlgWait.cs</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
+    <EmbeddedResource Include="DlgWait.resx">
+      <DependentUpon>DlgWait.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -198,7 +207,7 @@
     <EmbeddedResource Include="Ribbon1.resx">
       <DependentUpon>Ribbon1.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="DistributionListUpdater_TemporaryKey.pfx" />
+    <None Include="app.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -206,6 +215,7 @@
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="Ribbon1.cs">
       <SubType>Component</SubType>
@@ -225,6 +235,18 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\SourceFolder.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\TargetFolder.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\SourceFolder2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\TargetFolder2.png" />
+  </ItemGroup>
+  <ItemGroup>
     <None Include="Resources\UpdateDistLists.png" />
   </ItemGroup>
   <PropertyGroup>
@@ -235,16 +257,18 @@
     <SignManifests>true</SignManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestKeyFile>DistributionListUpdater_TemporaryKey.pfx</ManifestKeyFile>
+    <ManifestKeyFile>
+    </ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>6616576EFA4C2ED0A7091B37B1E4560C767D8039</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>33DA374CD6AC94358258294BA5DAA95AD2405159</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup>
     <SignAssembly>false</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
-    <AssemblyOriginatorKeyFile>DistributionListUpdater_TemporaryKey.pfx</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <!-- Include the build rules for a C# project. -->
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

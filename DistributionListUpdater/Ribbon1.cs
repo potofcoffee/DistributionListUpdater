@@ -24,5 +24,30 @@ namespace DistributionListUpdater
         {
             Globals.ThisAddIn.RebuildDistributionLists();
         }
+
+        private void button2_Click(object sender, RibbonControlEventArgs e)
+        {
+            Globals.ThisAddIn.ConfigureContactsFolder();
+        }
+
+        private void button3_Click(object sender, RibbonControlEventArgs e)
+        {
+            Globals.ThisAddIn.ConfigureContactsFolder();
+        }
+
+        private void button4_Click(object sender, RibbonControlEventArgs e)
+        {
+            Globals.ThisAddIn.ConfigureListsFolder();
+        }
+
+        private void button2_Click_1(object sender, RibbonControlEventArgs e)
+        {
+            Globals.ThisAddIn.ConfigureContactsFolder();
+        }
+
+        private void button5_Click(object sender, RibbonControlEventArgs e)
+        {
+            Globals.ThisAddIn.ConfigureListsFolder();
+        }
     }
 }

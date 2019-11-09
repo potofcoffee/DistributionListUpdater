@@ -1,7 +1,7 @@
 DistributionListUpdater
 =======================
 
-Outlook-Addin zum automatischen Erstellen von Verteilerlisten
+Outlook-Add-In zum automatischen Erstellen von Verteilerlisten
 
 Autor: Christoph Fischer, christoph.fischer@elkw.de
 
@@ -11,22 +11,26 @@ Verteilerlisten unter Outlook leiden unter zwei grundsätzlichen Problemen:
 1. Bestehende Outlookkontakte können zwar zu einer Verteilerliste hinzugefügt werden, nachfolgende Änderungen an den Kontaktdaten werden aber nicht automatisch übernommen. Die Möglichkeit, eine Verteilerliste zur Bearbeitung zu öffnen und anschließend zu "aktualisieren" ist bie einer großen Anzahl von Verteilerlisten keine zufriedenstellende Lösung.
 2. Verteilerlisten können nicht zu einer Kontaktliste auf Sharepoint hinzugefügt und damit auf mehreren Rechnern synchron gehalten werden. Verteilerlisten können nur in lokalen (bzw. auf Exchange gespeicherten) Kontaktordnern angelegt werden.
 
-Das vorliegende Addin bietet einen Lösungsansatz dazu. Nach der Installation legt es einen neuen, lokalen Kontaktordner
-mit dem Titel "Verteilerlisten" an. Durch einen einzigen Klick im Menüband werden alle verfügbaren Kontakte auf zugeordnete Kategorien durchsucht. Zu jeder Kategorie wird automatisch eine Verteilerliste aufgebaut. Ein erneuter Klick im Menüband aktualisiert alle diese Listen.
+Das vorliegende Add-In bietet einen Lösungsansatz dazu. Mit einem Klick wird ein vordefinierter Kontaktordner nach Kategorien durchsucht. Zu jeder Kategorie wird eine Verteilerliste "VL.Kategoriename" mit den
+entsprechenden Kontakten erstellt.
 
 ## Installation
 
-1. Laden Sie das Setup-Programm zum Addin hier unter [Releases](https://github.com/potofcoffee/DistributionListUpdater/releases) herunter.
-2. Beenden Sie Outlook, falls es aktuell ausgeführt wird.
-3. Führen Sie das Setup-Programm aus und übernehmen Sie die vorgeschlagenen Einstellungen.
-4. Starten Sie Outlook. Falls Sie die folgende Sicherheitsabfrage (nur beim ersten Start nach der Installation) sehen, klicken Sie auf "Installieren":
+1. Legen Sie einen neuen, leeren Kontaktordner für Ihre Verteilerlisten an.
+2. Laden Sie das Setup-Programm zum Add-In hier unter [Releases](https://github.com/potofcoffee/DistributionListUpdater/releases) herunter.
+3. Beenden Sie Outlook, falls es aktuell ausgeführt wird.
+4. Führen Sie das Setup-Programm aus und übernehmen Sie die vorgeschlagenen Einstellungen.
+5. Starten Sie Outlook. Falls Sie die folgende Sicherheitsabfrage (nur beim ersten Start nach der Installation) sehen, klicken Sie auf "Installieren":
 
 ![Security Message](DistributionListUpdater/docs/SecurityWarningOnInstall.png)
+6. Nach dem Start fragt das Add-In einmalig nach dem zu durchsuchenden Kontaktordner, sowie nach einem Ordner für die Verteilerlisten. *Bitte beachten: Der Ordner für die 
+Verteilerlisten wird bei jeder Aktualisierung durch das Add-In komplett gelöscht und neu angelegt. Legen Sie hier keine eigenen Einträge an!* Die beim ersten Start getroffene 
+Zuweisung kann jederzeit über die Schaltflächen "Ko" und "List" verändert werden.
 
 
 ## Bedienung
 
-1. Ordnen sie ihren Kontakten beliebige Kategorien zu.
+1. Ordnen sie den Kontakten im ausgewählten Kontaktordner beliebige Kategorien zu.
 
 ![Categorize Contact](DistributionListUpdater/docs/CategorizeContact.png)
 
@@ -38,18 +42,18 @@ mit dem Titel "Verteilerlisten" an. Durch einen einzigen Klick im Menüband werde
 
 
 
-3. Im Kontaktordner "Verteilerlisten finden Sie ihre neuen Verteilerlisten. Zum einfacheren Auffinden bei der Adresseingabe wird dem Titel der Kategorie jeweils "VL." vorangestellt.
+3. Im Verteilerlistenordner finden Sie ihre neuen Verteilerlisten. Zum einfacheren Auffinden bei der Adresseingabe wird dem Titel der Kategorie jeweils "VL." vorangestellt.
 
 ![Distribution Lists](DistributionListUpdater/docs/DistributionLists.png)
 
 ## Wichtige Informationen
 
-1. Die automatisch erzeugten Listen werden bei jedem Klick auf die Schaltfläche "Alle aktualisieren" gelöscht und neu erstellt. Manuelle Änderungen an der Verteilerliste gehen dabei verloren. Bitte nehmen Sie Änderungen nur direkt an den Kontakten bzw. deren Kategoriezuweisungen vor.
+1. Der Verteilerlistenordner wird bei jedem Klick auf die Schaltfläche "Alle aktualisieren" gelöscht und neu erstellt. Manuelle Änderungen an der Verteilerliste gehen dabei verloren. Bitte nehmen Sie Änderungen nur direkt an den Kontakten bzw. deren Kategoriezuweisungen vor.
 2. Kontakte mit Kategorien können über Sharepoint zwischen mehreren Benutzern synchron gehalten werden. Dies ist grundsätzlich auch auf dem ELKW-Sharepoint möglich. Dazu muss die Einrichtung einer "Kontaktliste" beantragt werden. Bitte beachten Sie, dass in der Standardeinstellung nur bestimmte Kontaktdaten synchronisiert werden. Das Feld "Kategorien" gehört nicht dazu. Auf dem Sharepoint ist es daher nötig, dieses (und evtl. weitere benötigte Felder) erst hinzuzufügen. Im Fall des ELKW-Sharepoints muss dies durch die Datagroup geschehen.
 
 
 ## Danke
-Das Installationsprogramm zum Addin wurde mit Daniel Kraus' ausgezeichnetem [VstoAddinInstaller](https://github.com/bovender/VstoAddinInstaller) erstellt.
+Das Installationsprogramm zum Add-In wurde mit Daniel Kraus' ausgezeichnetem [VstoAdd-InInstaller](https://github.com/bovender/VstoAdd-InInstaller) erstellt.
 
 ## Lizenz
-Dieses Addin wird unter der GNU GPLv3-Lizenz angeboten. Nähere Informationen dazu finden sich in der Datei [LICENSE](LICENSE). Ausführliche deutschsprachige Lizenzinformationen finden sich [hier](http://www.gnu.de/documents/gpl.de.html).
+Dieses Add-In wird unter der GNU GPLv3-Lizenz angeboten. Nähere Informationen dazu finden sich in der Datei [LICENSE](LICENSE). Ausführliche deutschsprachige Lizenzinformationen finden sich [hier](http://www.gnu.de/documents/gpl.de.html).

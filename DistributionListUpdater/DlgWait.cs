@@ -65,14 +65,13 @@ namespace DistributionListUpdater
             }
 
             int max = Globals.ThisAddIn.ContactsFolder.Items.OfType<Outlook.ContactItem>().Count();
-
             int ctr = 0;
             foreach (Outlook.ContactItem contact in Globals.ThisAddIn.ContactsFolder.Items.OfType<Outlook.ContactItem>())
             {
                 ctr++;
                 backgroundWorker1.ReportProgress(ctr);
                 Application.DoEvents();
-
+                
                 // only process contacts with an email address
                 if (contact.Email1Address != null)
                 {
@@ -106,7 +105,6 @@ namespace DistributionListUpdater
                     }
                 }
             }
-
 
 
         }

@@ -19,10 +19,17 @@ namespace DistributionListUpdater
 
         private void ClearDistributionLists() {
             DistLists.Clear();
-            foreach (ContactItem distList in ListsFolder.Items)
-            {
-                distList.Delete();
-            }
+
+            Folder parentFolder = ListsFolder.Parent;
+            string name = ListsFolder.Name;
+            ListsFolder.Delete();
+
+            ListsFolder = parentFolder.Folders.Add(name, OlDefaultFolders.olFolderContacts);
+            ListsFolder.ShowAsOutlookAB = true;
+
+            Properties.Settings.Default.ListsFolderPath = ListsFolder.FolderPath;
+            Properties.Settings.Default.Save();
+
         }
 
         /**
@@ -30,7 +37,6 @@ namespace DistributionListUpdater
          */
         public void RebuildDistributionLists()
         {
-            DistListItem myList = null;
 
             ClearDistributionLists();
             DlgWait StatusDlg = new DlgWait();
